@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      About
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="about">
+  <ion-list no-lines>
+    <ion-item-sliding *ngFor="let line of displayedText; let i = index">
+      <ion-item><span style="white-space:pre;font-family:monospace" >{{line}}</span></ion-item>
+      <ion-item-options *ngIf='testForChar(fullText[i])'>
+        <button *ngIf="hideLevel[i] < maxHideLevel" (click)="hideMore(i)"><ion-icon name="add"></ion-icon></button>
+        <button *ngIf="hideLevel[i] === 0" (click)="hideMore(i)">hide</button>
+        <button *ngIf="hideLevel[i] != 0" (click)="hideLess(i)">hide</button>
+        <button *ngIf="hideLevel[i] > 0" (click)="hideLess(i)"><ion-icon name="remove"></ion-icon></button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
