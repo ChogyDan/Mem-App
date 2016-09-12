@@ -17,7 +17,7 @@ export class AboutPage {
   hideLevel: number[];
   maxHideLevel = 4;
   constructor(private navCtrl: NavController, private service: MemorizeService ) {
-    this.fullText = service.getText("default"); 
+    this.fullText = service.getText(); 
     //this.obscuredText = helpers.obscureStrings(this.fullText, 1);
     //this.displayedText = this.fullText.splice(0);
     this.hideLevel = service.getSave();

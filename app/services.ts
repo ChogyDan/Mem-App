@@ -17,6 +17,7 @@ import {practices37, friends} from './myservicevariables';
 @Injectable()
 export class MemorizeServices {
     _this;
+    title: number;
     constructor(){
         this._this = this;
     }
@@ -56,6 +57,11 @@ export class MemorizeServices {
         }
 
         localStorage['save'] = JSON.stringify(data);
+    }
+
+    setTitle(title: string): void {
+        let index = this.getNames().indexOf(title);
+        this.title = index == -1 ? 0 : index;
     }
 }
 

@@ -28,4 +28,9 @@ export class HomePage {
     console.log("swoosh called");
     this.navCtrl.push(AboutPage);
   }
+  
+  startMemorizing(title: string){
+    this.service.setTitle(title);
+    this.navCtrl.push(AboutPage);
+  }
 }
