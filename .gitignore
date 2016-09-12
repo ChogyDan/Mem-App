@@ -1,0 +1,12 @@
+
+hooks/*
+www/*
+typings/*
+platforms/*
+plugins/*
+resources/*
+node_modules/*
+.editorconfig
+config.xml
+gulpfile.js
+*.json
