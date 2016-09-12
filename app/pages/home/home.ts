@@ -13,15 +13,16 @@ export class HomePage {
   constructor(private navCtrl: NavController, private service: MemorizeService ) {
     this.textList = service.getNames();
     this.textList.push("select test");
-    this.fullText = service.getText("default");
+    this.fullText = service.getText();
 
   }
   //mydata = new MemorizeServices();
   //text = this.mydata.getText();
 
-  selectText(text){
-    console.log(text);
-    this.fullText = this.service.getText(text);
+  selectText(title){
+    console.log("Title that was selected is " + title);
+    this.service.setTitle(title);
+    this.fullText = this.service.getText();
   }
 
   swoosh(){
@@ -30,7 +31,6 @@ export class HomePage {
   }
   
   startMemorizing(title: string){
-    this.service.setTitle(title);
     this.navCtrl.push(AboutPage);
   }
 }
