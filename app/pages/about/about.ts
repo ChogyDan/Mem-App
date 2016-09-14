@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
+import {Platform, ActionSheetController} from 'ionic-angular'
 import {MemorizeServices as MemorizeService} from '../../services';
 import * as helpers from '../../myfunctions'
 
@@ -16,7 +17,7 @@ export class AboutPage {
   save: (data: boolean[]) => void;
   hideLevel: number[];
   maxHideLevel = 4;
-  constructor(private navCtrl: NavController, private service: MemorizeService ) {
+  constructor(private navCtrl: NavController, private service: MemorizeService, public actionSheetGenerator: ActionSheetController ) {
     this.fullText = service.getText(); 
     //this.obscuredText = helpers.obscureStrings(this.fullText, 1);
     //this.displayedText = this.fullText.splice(0);
@@ -28,6 +29,7 @@ export class AboutPage {
     //  this.hideLevel[i] = 0;
       this.updateDisplay(i);//this.displayedText[i] = this.revealed[i] ? this.fullText[i] : this.obscuredText[i];
     }
+
   }
 
   revealClick (line) {
@@ -89,6 +91,31 @@ export class AboutPage {
 
   testForChar(string: string): boolean{
     return helpers.testForChar(string);
+  }
+
+  changeHide(line: number) {
+    let actionSheet = this.actionSheetGenerator.create({
+      title: 'Hide',
+      buttons: [
+        {
+          text: 'Hide more',
+          handler: () => {
+            console.log("button clicked");
+            this.hideMore(line);
+          }
+        },
+        {
+          text: 'Hide Less',
+          handler: () => {
+            console.log("hide less clicked");
+            this.hideLess(line);
+          }
+        }
+      ]
+
+    });
+    actionSheet.present();
+
   }
 
 }

@@ -27,10 +27,11 @@ export class HomePage {
 
   swoosh(){
     console.log("swoosh called");
-    this.navCtrl.push(AboutPage);
+    this.navCtrl.parent.push(AboutPage);
   }
   
   startMemorizing(title: string){
-    this.navCtrl.push(AboutPage);
+    console.log(this.navCtrl.parent);
+    this.navCtrl.parent.push(AboutPage);
   }
 }

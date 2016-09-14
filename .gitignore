@@ -1,12 +1,21 @@
+# Specifies files to intentionally ignore when using Git
+# http://git-scm.com/docs/gitignore
 
-hooks/*
-www/*
-typings/*
-platforms/*
-plugins/*
-resources/*
-node_modules/*
+node_modules/
+www/
+platforms/
+plugins/
+*.swp
+.DS_Store
+Thumbs.db
 .editorconfig
 config.xml
 gulpfile.js
-*.json
+hooks/
+ionic.config.json
+package.json
+resources/
+tsconfig.json
+tslint.json
+typings.json
+typings/
