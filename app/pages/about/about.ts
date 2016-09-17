@@ -14,7 +14,6 @@ export class AboutPage {
   displayedText: string[];
   revealed: boolean[];
   storage;
-  save: (data: boolean[]) => void;
   hideLevel: number[];
   maxHideLevel = 4;
   constructor(private navCtrl: NavController, private service: MemorizeService, public actionSheetGenerator: ActionSheetController ) {
@@ -32,7 +31,7 @@ export class AboutPage {
 
   }
 
-  revealClick (line) {
+  /*revealClick (line) {
     this.displayedText[line] = this.fullText[line];
     this.revealed[line] = true;
     this.service.save(this.revealed);
@@ -42,7 +41,11 @@ export class AboutPage {
     this.displayedText[line] = this.obscuredText[line];
     this.revealed[line] = false;
     this.service.save(this.revealed);
+  }*/
+  save() {
+    this.service.save(this.hideLevel);
   }
+  
   hideMore(line){
     console.log("hide more");
     if(this.hideLevel[line] === 4){
@@ -52,7 +55,6 @@ export class AboutPage {
     this.hideLevel[line] += 1;
     this.updateDisplay(line);
     this.service.save(this.hideLevel);
-
   }
   hideLess(line){
     if(this.hideLevel[line] === 0){
@@ -93,9 +95,56 @@ export class AboutPage {
     return helpers.testForChar(string);
   }
 
+  hideCycle(line: number){
+    if(this.hideLevel[line] < 4) {
+      this.hideLevel[line] += 1;
+    } else {
+        this.hideLevel[line] = 0;
+    }
+    this.updateDisplay(line);
+    this.service.save(this.hideLevel);
+  }
+
   changeHide(line: number) {
+    let explicitButtons = [
+    {
+      text: this.fullText[line],
+      handler: () => {
+        this.hideLevel[line] = 0;
+        this.displayedText[line] = this.fullText[line]
+      },
+    },
+    {
+      text: helpers.obscureEndOfString(this.fullText[line], 1, "odd"),
+      handler: () => {
+        this.hideLevel[line] = 1;
+        this.displayedText[line] = helpers.obscureEndOfString(this.fullText[line], 1, "odd")
+      },
+    },
+    {
+      text: helpers.obscureEndOfString(this.fullText[line], 1, "even"),
+      handler: () => {
+        this.hideLevel[line] = 2;
+        this.displayedText[line] = helpers.obscureEndOfString(this.fullText[line], 1, "even")
+      },
+    },
+    {
+      text: helpers.obscureEndOfString(this.fullText[line], 1, "both"),
+      handler: () => {
+        this.hideLevel[line] = 3;
+        this.displayedText[line] = helpers.obscureEndOfString(this.fullText[line], 1, "both")
+      },
+    },
+    {
+      text: helpers.obscureEndOfString(this.fullText[line], 0, "both"),
+      handler: () => {
+        this.hideLevel[line] = 4;
+        this.displayedText[line] = helpers.obscureEndOfString(this.fullText[line], 0, "both")
+      },
+    },
+    ];
     let actionSheet = this.actionSheetGenerator.create({
-      title: 'Hide',
+      title: this.fullText[line],
       buttons: [
         {
           text: 'Hide more',
@@ -114,7 +163,9 @@ export class AboutPage {
       ]
 
     });
-    actionSheet.present();
+    actionSheet.present().then(function(){
+
+    });
 
   }
 
