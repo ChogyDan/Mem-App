@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Start</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="start">
+  <h2>Mem app</h2>
+  <p>
+    A memorization app to help with classical buddhist texts.  Hopefully there is something special about this endevor.
+  </p>
+  <table>
+    <tr><td>Strategy</td><td>Name</td>
+    <tr>
+      <td><select><option>First Letter</option>
+      <option>Odd-Even</option>
+      </select></td>
+      <td><select (change)="selectText($event.target.value)">
+      <option *ngFor="let textName of textList"  [value]="textName">{{textName}}</option>
+      </select></td>
+      <td><button (click)="startMemorizing()">Start!</button></td>
+    </tr>
+  </table>
+  <p><span *ngFor="let line of fullText">{{line}}<br></span></p>
+  <button (click)="swoosh()">Take me to about!</button>
+  
+
+</ion-content>

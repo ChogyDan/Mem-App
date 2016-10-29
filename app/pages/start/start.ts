@@ -4,10 +4,10 @@ import {MemorizeServices as MemorizeService} from '../../services';
 import {AboutPage} from '../about/about';
 
 @Component({
-  templateUrl: 'build/pages/home/home.html',
+  templateUrl: 'build/pages/start/start.html',
   providers: [MemorizeService],
 })
-export class HomePage {
+export class StartPage {
   fullText: string[] = ['first line','second line','third line'];
   textList: string [] = ['first text', 'second text', 'third text'];
   constructor(private navCtrl: NavController, private service: MemorizeService ) {
