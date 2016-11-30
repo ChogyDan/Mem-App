@@ -5,10 +5,10 @@ import {MemorizeServices as MemorizeService} from '../../services';
 import * as helpers from '../../myfunctions'
 
 @Component({
-  templateUrl: 'build/pages/about/about.html',
+  templateUrl: 'build/pages/memorize/memorize.html',
   providers: [MemorizeService],
 })
-export class AboutPage {
+export class MemorizePage {
   fullText;
   obscuredText: string[];
   displayedText: string[];

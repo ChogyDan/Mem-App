@@ -1,12 +1,12 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      About
+      Memorize
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="about">
+<ion-content padding class="memorize">
   <ion-list no-lines>
     <ion-item *ngFor="let line of displayedText; let i = index" (click)="hideCycle(i)">
       <p style="white-space:pre;font-family:monospace">{{line}}</p>

@@ -1,13 +1,13 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {MemorizeServices as MemorizeService} from '../../services';
-import {AboutPage} from '../about/about';
+import {MemorizePage} from '../memorize/memorize';
 
 @Component({
-  templateUrl: 'build/pages/start/start.html',
+  templateUrl: 'build/pages/setup/setup.html',
   providers: [MemorizeService],
 })
-export class StartPage {
+export class SetupPage {
   fullText: string[] = ['first line','second line','third line'];
   textList: string [] = ['first text', 'second text', 'third text'];
   constructor(private navCtrl: NavController, private service: MemorizeService ) {
@@ -27,11 +27,11 @@ export class StartPage {
 
   swoosh(){
     console.log("swoosh called");
-    this.navCtrl.parent.push(AboutPage);
+    this.navCtrl.parent.push(MemorizePage);
   }
   
   startMemorizing(title: string){
     console.log(this.navCtrl.parent);
-    this.navCtrl.push(AboutPage);
+    this.navCtrl.push(MemorizePage);
   }
 }
