@@ -32,6 +32,6 @@ export class StartPage {
   
   startMemorizing(title: string){
     console.log(this.navCtrl.parent);
-    this.navCtrl.parent.push(AboutPage);
+    this.navCtrl.push(AboutPage);
   }
 }

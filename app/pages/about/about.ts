@@ -75,13 +75,13 @@ export class AboutPage {
       case 1:
       newText = helpers.obscureEndOfString(this.fullText[line], 1, "odd");
       break;
-      case 2:
+      /*case 2:
       newText = helpers.obscureEndOfString(this.fullText[line], 1, "even");
-      break;
-      case 3:
+      break;*/
+      case 2:
       newText = helpers.obscureEndOfString(this.fullText[line], 1, "both");
       break;
-      case 4:
+      case 3:
       newText = helpers.obscureEndOfString(this.fullText[line], 0, "both");
       break;
       default:
@@ -96,7 +96,7 @@ export class AboutPage {
   }
 
   hideCycle(line: number){
-    if(this.hideLevel[line] < 4) {
+    if(this.hideLevel[line] < 3) {
       this.hideLevel[line] += 1;
     } else {
         this.hideLevel[line] = 0;

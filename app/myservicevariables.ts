@@ -1,3 +1,22 @@
+
+
+export interface PerTextCustomization {
+    titleList: string [];
+    textList: string [];
+    intro: string;
+}
+
+export class Practices37 implements PerTextCustomization {
+    titleList;
+    textList;
+    intro;
+    constructor() {
+        this.titleList = ["37 Practices of a Bodhisattva"];
+        this.textList = [practices37];
+        this.intro = "This is the 37 practices of a Bodhisattva, translated by ken.  This was taken from this website <a html=\"https://example.com\">37 practices</a>.";
+    }
+}
+
 export let practices37 = `Namo Lokesvaraya
 
 You who see that experience has no coming or going,
@@ -21,6 +40,7 @@ Attraction to those close to you catches you in its currents;
 Aversion to those who oppose you burns inside;
 Indifference that ignores what needs to be done is a black hole.
 Leave your homeland — this is the practice of a bodhisattva.
+
 3
 Don’t engage disturbances and reactive emotions gradually fade away;
 Don’t engage distractions and spiritual practice naturally grows;

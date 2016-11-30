@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import {practices37, friends} from './myservicevariables';
+import {practices37, friends, Practices37} from './myservicevariables';
+
+let mainTexts = new Practices37();
+
 //from https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
  function storageAvailable(type) {
 	try {
@@ -17,27 +20,33 @@ import {practices37, friends} from './myservicevariables';
 var count = 0;
 @Injectable()
 export class MemorizeServices {
-    _this;
     title: string;
+    currentText: number;
     constructor(){
-        this._this = this;
         this.title = this.getNames()[0];
         count += 1;
         console.log("Mem service count is " + count);
+        this.currentText = 0;
     }
-    getText(): string[] {
+    getText(num?: number): string[] {
+        if(num == undefined) {
+            num = this.getCurrent();
+        }
         let text = this.getTitle() === "friends" ? friends : practices37;
         //let textwithbr = practices37.replace(/(?:\r\n|\r|\n)/g, '\n<br>');
         //let textArray = practices37.split('\n');
         /*if(name === "friends") {
             return friends.split('\n');
         }*/
-        console.log("title in getTetxt " + this.title);
+        console.log("HI, num is " + num);
+        text = mainTexts.textList[num];
+        console.log("title in getTetxt " + text);
 
         return text.split('\n');
     }//getText
     getNames(): string [] {
-        return ["37 practices", "friends"];
+        //return ["37 practices", "friends"];
+        return mainTexts.titleList;
     }
     getSave() {
         let save = storageAvailable('localStorage') ? window.localStorage[this._saveLocation()] : undefined;
@@ -51,7 +60,7 @@ export class MemorizeServices {
             if(save != undefined) {
               console.log("lengths: " + JSON.parse(save).length + " and text length: " + this.getText().length);
             }
-            return this._this.getText().map(function(_,i){
+            return this.getText().map(function(_,i){
                 return 0;
             });
         }
@@ -77,6 +86,19 @@ export class MemorizeServices {
             return window.localStorage['currentTitle'];
         } else {
             return this.getNames()[0];
+        }
+    }
+
+    setCurrent(current: number){
+        window.localStorage['currentIndex'] = this.currentText;
+    }
+
+    getCurrent(): number {
+        if(storageAvailable('localStorage') && window.localStorage['currentIndex'] != undefined) {
+            console.log("currentIndex is " + window.localStorage['currentIndex']);
+            return window.localStorage['currentIndex'];
+        } else {
+            return 0;
         }
     }
 
