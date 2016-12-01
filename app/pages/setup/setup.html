@@ -18,7 +18,8 @@
       <td><select (change)="selectText($event.target.value)">
       <option *ngFor="let textName of textList"  [value]="textName">{{textName}}</option>
       </select></td>
-      <td><button (click)="startMemorizing()">Start!</button></td>
+      <td><button (click)="restartMemorization()">Restart</button></td>
+      <td><button (click)="continue()">Continue</button></td>
     </tr>
   </table>
   <p><span *ngFor="let line of fullText">{{line}}<br></span></p>

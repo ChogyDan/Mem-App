@@ -34,4 +34,15 @@ export class SetupPage {
     console.log(this.navCtrl.parent);
     this.navCtrl.push(MemorizePage);
   }
+
+  restartMemorization(){
+    this.service.restart();
+    this.continue();
+  }
+
+  continue(){
+    // console.log("continue called 2");
+    // console.log(this.navCtrl.parent.getByIndex(1));
+    this.navCtrl.parent.select(1);
+  }
 }

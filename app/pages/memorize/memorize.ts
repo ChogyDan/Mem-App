@@ -20,16 +20,25 @@ export class MemorizePage {
     this.fullText = service.getText(); 
     //this.obscuredText = helpers.obscureStrings(this.fullText, 1);
     //this.displayedText = this.fullText.splice(0);
-    this.hideLevel = service.getSave();
-    console.log(this.hideLevel);
     this.displayedText = [];
     //this.hideLevel = [];
+    this.refresh();
+
+
+  }
+
+  refresh(){
+    this.hideLevel = this.service.getSave();
     for (let i = 0; i < this.fullText.length; i++) {
     //  this.hideLevel[i] = 0;
       this.updateDisplay(i);//this.displayedText[i] = this.revealed[i] ? this.fullText[i] : this.obscuredText[i];
     }
-
   }
+
+  onPageWillEnter() {
+      this.refresh();
+  }
+
 
   /*revealClick (line) {
     this.displayedText[line] = this.fullText[line];

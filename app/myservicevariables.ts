@@ -274,19 +274,3 @@ May they be like Lord All Seeing.
 Tog-me, the monk, a teacher of scripture and logic, composed this text in a cave near the town of Ngülchu Rinchen for his own and others’ benefit.
 `;
 
-export let friends = `A Song of Those who are Full of Love but Free of Attachment
-
-Friends are empty forms, like a water moon
-To think of them as being truly real
-Will only make your many sufferings increase
-
-To know they’re empty forms, like a water moon
-Will make illusion-like samadhi increase
-Compassion free of clinging will increase
-
-And non-referential view will also increase
-And meditation that’s fixation-free
-And conduct free of doer, deed increase
-
-Of all the many marvels, this, by far the most marvelous!
-Of all the many wonders, this, the most wonderful!`;
