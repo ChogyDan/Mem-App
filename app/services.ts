@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import {practices37, friends, Practices37} from './myservicevariables';
+import {practices37, Practices37} from './myservicevariables';
+
+var friends = "temp friends variable";
 
 let mainTexts = new Practices37();
 

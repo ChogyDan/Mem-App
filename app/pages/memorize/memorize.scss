@@ -1,2 +1,9 @@
 .memorize {
+    ion-label {
+        margin: 0px 8px 0px 0;
+    }
+
+    .item {
+        min-height: 2.2rem; /* <- this can be whatever you need */
+    }
 }
