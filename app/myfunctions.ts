@@ -9,8 +9,9 @@ export let obscureEndOfString = function(string: string, count: number, config: 
     for (let i = 0; i < dividedString.length; i++) {
         if((i%2==0 && even || i%2===1 && odd) && testForChar(dividedString[i])) {
             obscuredStringWorker[i] = ""; //initialize...
-            for (let charI = 0; charI < dividedString[i].length; charI++) {
-                obscuredStringWorker[i] += charI<count ? dividedString[i][charI] : '_';
+            for (let charI = 0, charCurrent = ''; charI < dividedString[i].length; charI++) {
+                charCurrent = dividedString[i][charI];
+                obscuredStringWorker[i] += charI<count || !testForChar(charCurrent) ? charCurrent : '_'; //second part of OR makes punctuation ignored
             }
         } else obscuredStringWorker[i] = dividedString[i];
     }
