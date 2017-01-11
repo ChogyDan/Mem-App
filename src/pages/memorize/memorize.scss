@@ -3,7 +3,11 @@ memorize-page {
         margin: 0px 8px 0px 0;
     }
 
+    .label-md {
+        margin: 0px 0px 8px 0px; /* a million ways they set the height.  a million ways height must be unset.  Stop the power!  Fight height control! */
+    }
+
     .item {
-        min-height: 2.2rem; /* <- this can be whatever you need */
+        min-height: 3.2rem; /* <- this can be whatever you need */
     }
 }

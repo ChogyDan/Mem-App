@@ -35,6 +35,9 @@ export class MemorizeServices {
         if(num == undefined) {
             num = this.getCurrent();
         }
+        if(num >= texts.texts.length) {
+            num = 0;
+        }
         let text = this.getTitle() === "friends" ? friends : practices37;
         //let textwithbr = practices37.replace(/(?:\r\n|\r|\n)/g, '\n<br>');
         //let textArray = practices37.split('\n');
@@ -45,13 +48,15 @@ export class MemorizeServices {
         // text = mainTexts.textList[num];
         // console.log("title in getTetxt " + text);
 
-        return text.split('\n');
+        //return text.split('\n');
+
+        return texts.texts[num].split('\n');
     }//getText
     getNames(): string [] {
-        //return ["37 practices", "friends"];
-        return mainTexts.titleList;
+        // return mainTexts.titleList;
+        return texts.titles;
     }
-    getSave() {
+    getSave() { // 'save' refers to saved user data
         let save = storageAvailable('localStorage') ? window.localStorage[this._saveLocation()] : undefined;
         
         if( save != undefined && JSON.parse(save).length == this.getText().length){
@@ -69,12 +74,13 @@ export class MemorizeServices {
 
     restart() {
         this.save(
-            this.getText().map(   function(_,i){  return 0; }   )
+            this.getText().map(
+                function(_,i){  return 0; }
+            )
         );
     }
 
     save(data): void {
-
         if(data.length != this.getText().length) {
             console.log("ERROR: save data length is incorrect");
             return;

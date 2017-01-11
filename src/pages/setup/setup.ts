@@ -4,6 +4,7 @@ import {MemorizeServices as MemorizeService} from '../../services';
 import {MemorizePage} from '../memorize/memorize';
 
 @Component({
+  selector: 'setup-page',
   templateUrl: 'setup.html',
   providers: [MemorizeService],
 })

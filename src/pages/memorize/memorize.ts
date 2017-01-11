@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
-import {Platform, ActionSheetController} from 'ionic-angular'
+import {ActionSheetController} from 'ionic-angular'
 import {MemorizeServices as MemorizeService} from '../../services';
 import * as helpers from '../../myfunctions'
 
