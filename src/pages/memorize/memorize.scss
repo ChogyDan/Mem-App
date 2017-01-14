@@ -10,4 +10,7 @@ memorize-page {
     .item {
         min-height: 3.2rem; /* <- this can be whatever you need */
     }
+    .obscured {
+        opacity: .4;
+    }
 }

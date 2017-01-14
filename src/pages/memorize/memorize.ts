@@ -12,7 +12,7 @@ import * as helpers from '../../myfunctions'
 export class MemorizePage {
   fullText;
   obscuredText: string[];
-  displayedText: string[];
+  displayedText: string[][];
   revealed: boolean[];
   storage;
   hideLevel: number[];
@@ -95,11 +95,14 @@ export class MemorizePage {
       case 3:
       newText = helpers.obscureEndOfString(this.fullText[line], 0, "both");
       break;
+      case 4:
+      newText = helpers.obscureEndOfString(this.fullText[line], 1, "both");
+      break;
       default:
       console.log("WARNING: invalid hidelevel in updatedisplay");
       newText = this.fullText[line];
     }
-    this.displayedText[line] = newText;
+    this.displayedText[line] = newText.split(/([_]+)/);
   }
 
   testForChar(string: string): boolean{
@@ -107,16 +110,36 @@ export class MemorizePage {
   }
 
   hideCycle(line: number){
-    if(this.hideLevel[line] < 3) {
+    if(this.hideLevel[line] < 4) {
       this.hideLevel[line] += 1;
     } else {
-        this.hideLevel[line] = 0;
+      this.hideLevel[line] = 0;
+      /*let actionsheet = this.actionSheetGenerator.create({
+        title: "Choose path",
+        buttons: [{
+          text: "Hide completely",
+          handler: () => {
+            this.hideLevel[line] = 3;
+          }
+        },
+        {
+          text: "Reveal completely",
+          handler: () => {
+            this.hideLevel[line] = 0;
+          }
+        },
+        {
+          title: "Leave as is",
+          handler: () => { }
+        }]
+      });
+      actionsheet.present().then(function(){ });*/
     }
     this.updateDisplay(line);
     this.service.save(this.hideLevel);
   }
 
-  changeHide(line: number) {
+  /*changeHide(line: number) {
     let explicitButtons = [
     {
       text: this.fullText[line],
@@ -178,6 +201,6 @@ export class MemorizePage {
 
     });
 
-  }
+  }*/
 
 }
