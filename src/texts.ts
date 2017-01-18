@@ -1,5 +1,5 @@
 
-export let titles = ["Friends"];
+export let titles = ["Friends", "ABCDEs"];
 
 export let texts = [`A Song of Those who are Full of Love but Free of Attachment
 
@@ -16,4 +16,13 @@ And meditation that’s fixation-free
 And conduct free of doer, deed increase
 
 Of all the many marvels, this, by far the most marvelous!
-Of all the many wonders, this, the most wonderful!`];
+Of all the many wonders, this, the most wonderful!`,
+`Activation
+Belief
+Consequences
+Disputation
+evidence
+alternatives
+implications
+usefulness
+Energy`];

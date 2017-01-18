@@ -13,9 +13,7 @@ export class SetupPage {
   textList: string [] = ['first text', 'second text', 'third text'];
   constructor(private navCtrl: NavController, private service: MemorizeService ) {
     this.textList = service.getNames();
-    this.textList.push("select test");
     this.fullText = service.getText();
-
   }
   //mydata = new MemorizeServices();
   //text = this.mydata.getText();

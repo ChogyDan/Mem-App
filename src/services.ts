@@ -24,18 +24,19 @@ var count = 0;
 @Injectable()
 export class MemorizeServices {
     title: string;
-    currentText: number;
     constructor(){
         this.title = this.getNames()[0];
         count += 1;
-        console.log("Mem service count is " + count);
-        this.currentText = 0;
+        console.log("DEBUG: Mem service count is " + count);
+        //this.currentText = 0;
     }
     getText(num?: number): string[] {
         if(num == undefined) {
-            num = this.getCurrent();
+            //num = this.getCurrent();
+            num = texts.titles.indexOf(this.getTitle());
         }
-        if(num >= texts.texts.length) {
+        if(num >= texts.texts.length || num < 0) {
+            console.log("WARNING: invalid title detected in services.ts:getText");
             num = 0;
         }
         let text = this.getTitle() === "friends" ? friends : practices37;
@@ -63,11 +64,12 @@ export class MemorizeServices {
             return JSON.parse(save);
         } else { //no save available
             console.log("WARNING: no save found.  Either first time or no localStorage");
-            console.log("storage availalbe?: " + storageAvailable('localStorage'));
-            console.log("localStorage save present? " + (save != undefined));
+            console.log("- storage availalbe?: " + storageAvailable('localStorage'));
+            console.log("- localStorage save present? " + (save != undefined));
             if(save != undefined) {
-              console.log("lengths: " + JSON.parse(save).length + " and text length: " + this.getText().length);
+              console.log("- lengths: " + JSON.parse(save).length + " and text length: " + this.getText().length);
             }
+            console.log("- end no-save warning -");
             return this.getText().map(   function(_,i){  return 0; }   );
         }
     }
@@ -99,19 +101,6 @@ export class MemorizeServices {
             return window.localStorage['currentTitle'];
         } else {
             return this.getNames()[0];
-        }
-    }
-
-    setCurrent(current: number){
-        window.localStorage['currentIndex'] = this.currentText;
-    }
-
-    getCurrent(): number {
-        if(storageAvailable('localStorage') && window.localStorage['currentIndex'] != undefined) {
-            console.log("currentIndex is " + window.localStorage['currentIndex']);
-            return window.localStorage['currentIndex'];
-        } else {
-            return 0;
         }
     }
 

@@ -10,7 +10,6 @@ import * as helpers from '../../myfunctions'
   providers: [MemorizeService],
 })
 export class MemorizePage {
-  fullText;
   obscuredText: string[];
   displayedText: string[][];
   revealed: boolean[];
@@ -18,7 +17,6 @@ export class MemorizePage {
   hideLevel: number[];
   maxHideLevel = 4;
   constructor(private navCtrl: NavController, private service: MemorizeService, public actionSheetGenerator: ActionSheetController ) {
-    this.fullText = service.getText(); 
     //this.obscuredText = helpers.obscureStrings(this.fullText, 1);
     //this.displayedText = this.fullText.splice(0);
     this.displayedText = [];
@@ -30,15 +28,16 @@ export class MemorizePage {
 
   refresh(){
     this.hideLevel = this.service.getSave();
-    for (let i = 0; i < this.fullText.length; i++) {
-    //  this.hideLevel[i] = 0;
-      this.updateDisplay(i);//this.displayedText[i] = this.revealed[i] ? this.fullText[i] : this.obscuredText[i];
+    this.displayedText = this.hideLevel.map(function(_, i){
+      return ["DEBUG: uninitialized displayText in memorize:refresh"];
+    })
+    for (let i = 0; i < this.service.getText().length; i++) {
+      this.updateDisplay(i);
     }
   }
 
   ionViewWillEnter() {
       this.refresh();
-
   }
 
 
@@ -79,28 +78,29 @@ export class MemorizePage {
 
   updateDisplay(line) {
     let newText: string;
+    let fullText = this.service.getText();
     switch(this.hideLevel[line]){
       case 0:
-      newText = this.fullText[line];
+      newText = fullText[line];
       break;
       case 1:
-      newText = helpers.obscureEndOfString(this.fullText[line], 1, "odd");
+      newText = helpers.obscureEndOfString(fullText[line], 1, "odd");
       break;
       /*case 2:
-      newText = helpers.obscureEndOfString(this.fullText[line], 1, "even");
+      newText = helpers.obscureEndOfString(fullText[line], 1, "even");
       break;*/
       case 2:
-      newText = helpers.obscureEndOfString(this.fullText[line], 1, "both");
+      newText = helpers.obscureEndOfString(fullText[line], 1, "both");
       break;
       case 3:
-      newText = helpers.obscureEndOfString(this.fullText[line], 0, "both");
+      newText = helpers.obscureEndOfString(fullText[line], 0, "both");
       break;
       case 4:
-      newText = helpers.obscureEndOfString(this.fullText[line], 1, "both");
+      newText = helpers.obscureEndOfString(fullText[line], 1, "both");
       break;
       default:
-      console.log("WARNING: invalid hidelevel in updatedisplay");
-      newText = this.fullText[line];
+      console.log("WARNING: invalid hidelevel in updatedisplay: " + this.hideLevel[line]);
+      newText = fullText[line];
     }
     this.displayedText[line] = newText.split(/([_]+)/);
   }

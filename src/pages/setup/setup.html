@@ -15,8 +15,8 @@
       <!--<td><select><option>First Letter</option>
       <option>Odd-Even</option>
       </select></td>-->
-      <td><select (change)="selectText($event.target.value)">
-      <option *ngFor="let textName of textList"  [value]="textName">{{textName}}</option>
+      <td><select (change)="selectText($event.target.value)"><!--change to https://ionicframework.com/docs/v2/api/components/select/Select/-->
+      <option *ngFor="let textName of textList"  [value]="textName" [attr.selected]="textName==service.getTitle()?'selected':null">{{textName}}</option>
       </select></td>
       <td><button (click)="restartMemorization()">Restart</button></td>
       <td><button (click)="continue()">Continue</button></td>
