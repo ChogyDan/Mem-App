@@ -9,8 +9,8 @@ import {MemorizePage} from '../memorize/memorize';
   providers: [MemorizeService],
 })
 export class SetupPage {
-  fullText: string[] = ['first line','second line','third line'];
-  textList: string [] = ['first text', 'second text', 'third text'];
+  fullText: string[] = ['uninitialized','string:','list', 'fullText'];
+  textList: string [] = ['uninitialized','string:','list', 'textList'];
   constructor(private navCtrl: NavController, private service: MemorizeService ) {
     this.textList = service.getNames();
     this.fullText = service.getText();
