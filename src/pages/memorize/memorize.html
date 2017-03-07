@@ -6,7 +6,7 @@
 
 <ion-content padding class="memorize">
   <ion-list no-lines>
-    <ion-item *ngFor="let line of displayedText; let i = index" (click)="hideCycle(i)" text-wrap>
+    <ion-item *ngFor="let line of displayedText; let i = index" (tap)="hideCycle(i)" (press)="revealCycle(i)" text-wrap>
       <p style="white-space:pre-wrap;font-family:monospace"><span *ngFor="let section of line" [class.obscured]="section[0]=='_'">{{section}}</span></p>
     </ion-item>
   </ion-list>
