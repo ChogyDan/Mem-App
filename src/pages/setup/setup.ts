@@ -2,12 +2,12 @@ import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {MemorizeServices as MemorizeService} from '../../services';
 import {MemorizePage} from '../memorize/memorize';
-import {Autoresize} from '../../autoresize';
+/*import {Autoresize} from '../../autoresize';*/
 
 @Component({
   selector: 'setup-page',
   templateUrl: 'setup.html',
-  providers: [MemorizeService, Autoresize],
+  providers: [MemorizeService, /*Autoresize*/],
 })
 export class SetupPage {
   fullText: string[] = ['uninitialized','string:','list', 'fullText'];
@@ -17,7 +17,7 @@ export class SetupPage {
   constructor(private navCtrl: NavController, private service: MemorizeService ) {
     this.textList = service.getNames();
     this.fullText = service.getText();
-    this.isCustom = false;
+    this.isCustom = service.getTitle() == "custom";
     this.customText = window.localStorage["custom"];
   }
   //mydata = new MemorizeServices();

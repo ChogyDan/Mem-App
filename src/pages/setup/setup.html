@@ -24,7 +24,7 @@
     </tr>
   </table>
   <div *ngIf="!showCustom()"><p><span *ngFor="let line of fullText">{{line}}<br></span></p></div>
-  <ion-item *ngIf="showCustom()"><ion-label>Enter your own!</ion-label><ion-textarea rows="6"  autoresize [(ngModel)]="customText" (input)="adjust($event)">test text</ion-textarea></ion-item>
+  <ion-item *ngIf="showCustom()"><ion-label>Enter your own!</ion-label><ion-textarea rows="6" [(ngModel)]="customText" (input)="adjust($event)">test text</ion-textarea></ion-item>
 
   
 
