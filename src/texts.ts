@@ -1,7 +1,7 @@
+import * as practices from './texts/37practices'
+export let titles = ["Thirty-Seven Practices","Friends", "ABCDEs"];
 
-export let titles = ["Friends", "ABCDEs"];
-
-export let texts = [`A Song of Those who are Full of Love but Free of Attachment
+export let texts = [practices.text ,`A Song of Those who are Full of Love but Free of Attachment
 
 Friends are empty forms, like a water moon
 To think of them as being truly real

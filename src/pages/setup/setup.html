@@ -15,14 +15,16 @@
       <!--<td><select><option>First Letter</option>
       <option>Odd-Even</option>
       </select></td>-->
-      <td><select (change)="selectText($event.target.value)"><!--change to https://ionicframework.com/docs/v2/api/components/select/Select/-->
+      <td><select (change)="selectText($event.target.value)"><!--TODO change to https://ionicframework.com/docs/v2/api/components/select/Select/ -->
+      <option>custom</option>
       <option *ngFor="let textName of textList"  [value]="textName" [attr.selected]="textName==service.getTitle()?'selected':null">{{textName}}</option>
       </select></td>
       <td><button (click)="restartMemorization()">Restart</button></td>
       <td><button (click)="continue()">Continue</button></td>
     </tr>
   </table>
-  <p><span *ngFor="let line of fullText">{{line}}<br></span></p>
+  <div *ngIf="!showCustom()"><p><span *ngFor="let line of fullText">{{line}}<br></span></p></div>
+  <ion-item *ngIf="showCustom()"><ion-label>Enter your own!</ion-label><ion-textarea rows="6"  autoresize [(ngModel)]="customText" (input)="adjust($event)">test text</ion-textarea></ion-item>
 
   
 

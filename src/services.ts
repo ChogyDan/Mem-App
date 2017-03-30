@@ -24,35 +24,45 @@ var count = 0;
 @Injectable()
 export class MemorizeServices {
     title: string;
+    text: string [];
+    numCurrent: number;
     constructor(){
         this.title = this.getNames()[0];
         count += 1;
         console.log("DEBUG: Mem service count is " + count);
         //this.currentText = 0;
     }
-    getText(num?: number): string[] {
-        if(num == undefined) {
+
+    getText(num?: number): string[] {//TODO  HEREIAM  make this work with custom, and also adjust so it doesn't take num as input
+/*        if(num == undefined) {
             //num = this.getCurrent();
             num = texts.titles.indexOf(this.getTitle());
         }
         if(num >= texts.texts.length || num < 0) {
-            console.log("WARNING: invalid title detected in services.ts:getText");
+            console.log("WARNING: invalid title: " + num+" detected in services.ts:getText");
             num = 0;
         }
-        let text = this.getTitle() === "friends" ? friends : practices37;
-        //let textwithbr = practices37.replace(/(?:\r\n|\r|\n)/g, '\n<br>');
-        //let textArray = practices37.split('\n');
-        /*if(name === "friends") {
-            return friends.split('\n');
-        }*/
-        // console.log("HI, num is " + num);
-        // text = mainTexts.textList[num];
-        // console.log("title in getTetxt " + text);
 
-        //return text.split('\n');
+        if(num == this.numCurrent) {
+            return this.text;
+        } else {
+            this.numCurrent = num;
+            this.text = texts.texts[num].split('\n')
+            return this.text
+        };*/
 
-        return texts.texts[num].split('\n');
+        let returnText = "";
+        let title = this.getTitle();
+        if(title == "custom") {
+            returnText = window.localStorage["custom"];
+            console.log("returnText is custom: " + returnText);
+        } else {
+            returnText = texts.texts[texts.titles.indexOf(title)];
+            console.log("returnText is: " + returnText + " and title is " + title);
+        }
+        return returnText.split('\n');
     }//getText
+
     getNames(): string [] {
         // return mainTexts.titleList;
         return texts.titles;
@@ -92,10 +102,19 @@ export class MemorizeServices {
     }
 
     setTitle(title: string): void {
-        window.localStorage['currentTitle'] = this.getNames().indexOf(title) != -1 ? title : this.getNames()[0];
+        if(title == 'custom'){
+            console.log("custom text");
+            window.localStorage['currentTitle'] = "custom";
+        } else {
+            //do a search on the title, if it is found, use title as title, otherwise just use the first text available
+            window.localStorage['currentTitle'] = this.getNames().indexOf(title) != -1 ? title : this.getNames()[0];
+        }
     }
 
     getTitle(): string {
+        if(window.localStorage['currentTitle'] == "custom") {
+            return "custom";
+        }
         if(storageAvailable('localStorage') && window.localStorage['currentTitle'] != undefined) {
             //console.log("currentTitle is " + window.localStorage['currentTitle']);
             return window.localStorage['currentTitle'];

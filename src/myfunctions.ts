@@ -1,4 +1,7 @@
 export let obscureEndOfString = function(string: string, count: number, config: string) {
+    //count refers to the number of characters to be not hidden, 
+    // ie, 1 would mean the first character of each word stay revealed 
+    // and 0 would mean the whole word is hidden
     let even = config === "even" || config ==="both";
     let odd = config === "odd" || config === "both";
     if(string.length == 0){

@@ -31,7 +31,8 @@ export class MemorizePage {
     this.displayedText = this.hideLevel.map(function(_, i){
       return ["DEBUG: uninitialized displayText in memorize:refresh"];
     })
-    for (let i = 0; i < this.service.getText().length; i++) {
+    let textLength = this.service.getText().length;
+    for (let i = 0; i < textLength; i++) {
       this.updateDisplay(i);
     }
   }
@@ -110,10 +111,10 @@ export class MemorizePage {
   }
 
   hideCycle(line: number){
-    if(this.hideLevel[line] < 4) {
+    if(this.hideLevel[line] < 3) {
       this.hideLevel[line] += 1;
     } else {
-      this.hideLevel[line] = 0;
+      //this.hideLevel[line] = 0;
       /*let actionsheet = this.actionSheetGenerator.create({
         title: "Choose path",
         buttons: [{
