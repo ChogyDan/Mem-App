@@ -85,19 +85,19 @@ export class MemorizePage {
       newText = fullText[line];
       break;
       case 1:
-      newText = helpers.obscureEndOfString(fullText[line], 1, "odd");
+      newText = helpers.obscureEndOfString(fullText[line], 1, "first", "first");
       break;
       /*case 2:
       newText = helpers.obscureEndOfString(fullText[line], 1, "even");
       break;*/
       case 2:
-      newText = helpers.obscureEndOfString(fullText[line], 1, "both");
+      newText = helpers.obscureEndOfString(fullText[line], 1,  "all", "first");
       break;
       case 3:
-      newText = helpers.obscureEndOfString(fullText[line], 0, "both");
+      newText = helpers.obscureEndOfString(fullText[line], 0,  "first", "all");
       break;
       case 4:
-      newText = helpers.obscureEndOfString(fullText[line], 1, "both");
+      newText = helpers.obscureEndOfString(fullText[line], 0,  "all", "all");
       break;
       default:
       console.log("WARNING: invalid hidelevel in updatedisplay: " + this.hideLevel[line]);
@@ -111,7 +111,7 @@ export class MemorizePage {
   }
 
   hideCycle(line: number){
-    if(this.hideLevel[line] < 3) {
+    if(this.hideLevel[line] < 4) {
       this.hideLevel[line] += 1;
     } else {
       //this.hideLevel[line] = 0;

@@ -1,7 +1,8 @@
 import * as practices from './texts/37practices'
-export let titles = ["Thirty-Seven Practices","Friends", "ABCDEs"];
+import * as onefriend from './texts/onesource'
+export let titles = [onefriend.title, "Thirty-Seven Practices","Friends", "ABCDEs"];
 
-export let texts = [practices.text ,`A Song of Those who are Full of Love but Free of Attachment
+export let texts = [onefriend.text, practices.text ,`A Song of Those who are Full of Love but Free of Attachment
 
 Friends are empty forms, like a water moon
 To think of them as being truly real

@@ -1,22 +1,44 @@
-export let obscureEndOfString = function(string: string, count: number, config: string) {
-    //count refers to the number of characters to be not hidden, 
+export let obscureEndOfString = function(string: string, count: number, config_line: string, config_word: string) {
+//TODO count is depracated.  clean up.
+/*    so config needs to represent these things:
+    - except first word, except first letter, hidden
+    - except first letter, hidden
+    - excecpt first word, hidden
+    - all hidden*/
+
+ /*   //count refers to the number of characters to be not hidden, 
     // ie, 1 would mean the first character of each word stay revealed 
     // and 0 would mean the whole word is hidden
-    let even = config === "even" || config ==="both";
-    let odd = config === "odd" || config === "both";
+    //let even = config === "even" || config ==="both";
+    //let odd = config === "odd" || config === "both";*/
     if(string.length == 0){
         return '';
     }
+    let initial_i;
+    let initial_charI;
+    if(config_line == "first"){
+        initial_i = 1;
+    } else {
+        initial_i = 0;
+    }
+    if(config_word == "first") {
+        initial_charI = 1;
+    } else {
+        initial_charI = 0;
+    }
     let obscuredStringWorker = [];
     let dividedString = string.split(' '); //TODO maybe change this to Capturing Parentheses https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
-    for (let i = 0; i < dividedString.length; i++) {
-        if((i%2==0 && even || i%2===1 && odd) && testForChar(dividedString[i])) {
+    if(initial_i == 1){ obscuredStringWorker[0] = dividedString[0]; }
+    for (let i = initial_i; i < dividedString.length; i++) {
+        if( testForChar(dividedString[i]) ){
             obscuredStringWorker[i] = ""; //initialize...
-            for (let charI = 0, charCurrent = ''; charI < dividedString[i].length; charI++) {
+            if(initial_charI == 1) { obscuredStringWorker[i] += dividedString[i][0]; }
+            for (let charI = initial_charI, charCurrent = ''; charI < dividedString[i].length; charI++) {
                 charCurrent = dividedString[i][charI];
-                obscuredStringWorker[i] += charI<count || /[^'’\w]/.test(charCurrent) ? charCurrent : '_'; //second part of OR makes punctuation ignored
+                obscuredStringWorker[i] += /*charI<count ||*/ /[^'’\w]/.test(charCurrent) ? charCurrent : '_'; //second part of OR makes punctuation ignored
             }
-        } else obscuredStringWorker[i] = dividedString[i];
+        } 
+        else obscuredStringWorker[i] = dividedString[i];
     }
     return obscuredStringWorker.join(' ');//('&nbsp;&nbsp;&nbsp;');
 }
@@ -25,7 +47,7 @@ export let obscureEndOfString = function(string: string, count: number, config: 
 export function obscureStrings (stringArray: string[], count: number): string[] {
     let returnStringsWorker: string[] = [];
     for (let index = 0; index < stringArray.length; index++) {
-        returnStringsWorker[index] = obscureEndOfString(stringArray[index], count, "both");
+        returnStringsWorker[index] = obscureEndOfString(stringArray[index], count, "all", "all");
     }
     return returnStringsWorker;
 }
