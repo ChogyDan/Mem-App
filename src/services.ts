@@ -59,6 +59,10 @@ export class MemorizeServices {
         } else {
             returnText = texts.texts[texts.titles.indexOf(title)];
             console.log("returnText is: " + returnText + " and title is " + title);
+            if(returnText == undefined) {
+                returnText = texts.texts[0];
+                console.log("WARNING: invalid returnText detected.  Probably a bad title.  Using first text.");
+            }
         }
         return returnText.split('\n');
     }//getText

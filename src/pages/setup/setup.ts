@@ -64,7 +64,7 @@ export class SetupPage {
 
     //Autoresize logic
     // This code is based on this module: From: https://gist.github.com/Eetezadi/368658ca4364354cfca768f24e2ac810
-    // The module part of that module doesn't work, but the basic idea of it seems to work below.
+    // The module part of that module doesn't work, but the basic idea of it seems to work below (reassign height to scroll height).
     let ta = event.srcElement;
 		if (ta) {
 			ta.style.overflow = "hidden";
