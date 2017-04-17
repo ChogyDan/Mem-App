@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {Content, NavController} from 'ionic-angular';
 import {ActionSheetController} from 'ionic-angular'
 import {MemorizeServices as MemorizeService} from '../../services';
 import * as helpers from '../../myfunctions'
@@ -10,27 +10,34 @@ import * as helpers from '../../myfunctions'
   providers: [MemorizeService],
 })
 export class MemorizePage {
+  @ViewChild(Content) content: Content;
   obscuredText: string[];
   displayedText: string[][];
   revealed: boolean[];
   storage;
   hideLevel: number[];
   maxHideLevel = 4;
+  fullText: string[];
+  
   constructor(private navCtrl: NavController, private service: MemorizeService, public actionSheetGenerator: ActionSheetController ) {
     //this.obscuredText = helpers.obscureStrings(this.fullText, 1);
     //this.displayedText = this.fullText.splice(0);
     this.displayedText = [];
     //this.hideLevel = [];
     this.refresh();
+    //this.content.addScrollEventListener(this.onPageScroll);
+
+    
 
 
   }
 
   refresh(){
     this.hideLevel = this.service.getSave();
+    this.fullText = this.service.getText()
     this.displayedText = this.hideLevel.map(function(_, i){
       return ["DEBUG: uninitialized displayText in memorize:refresh"];
-    })
+    });
     let textLength = this.service.getText().length;
     for (let i = 0; i < textLength; i++) {
       this.updateDisplay(i);
@@ -38,7 +45,11 @@ export class MemorizePage {
   }
 
   ionViewWillEnter() {
-      this.refresh();
+    this.refresh();
+    this.content.scrollTo(0, localStorage["scrollPos"]);
+    this.content.ionScrollEnd.subscribe(($event:any ) => {
+      localStorage["scrollPos"] = $event.scrollTop
+    });
   }
 
 
@@ -79,29 +90,29 @@ export class MemorizePage {
 
   updateDisplay(line) {
     let newText: string;
-    let fullText = this.service.getText();
+    //let fullText = this.service.getText();
     switch(this.hideLevel[line]){
       case 0:
-      newText = fullText[line];
+      newText = this.fullText[line];
       break;
       case 1:
-      newText = helpers.obscureEndOfString(fullText[line], 1, "first", "first");
+      newText = helpers.obscureEndOfString(this.fullText[line], 1, "first", "first");
       break;
       /*case 2:
-      newText = helpers.obscureEndOfString(fullText[line], 1, "even");
+      newText = helpers.obscureEndOfString(this.fullText[line], 1, "even");
       break;*/
       case 2:
-      newText = helpers.obscureEndOfString(fullText[line], 1,  "all", "first");
+      newText = helpers.obscureEndOfString(this.fullText[line], 1,  "all", "first");
       break;
       case 3:
-      newText = helpers.obscureEndOfString(fullText[line], 0,  "first", "all");
+      newText = helpers.obscureEndOfString(this.fullText[line], 0,  "first", "all");
       break;
       case 4:
-      newText = helpers.obscureEndOfString(fullText[line], 0,  "all", "all");
+      newText = helpers.obscureEndOfString(this.fullText[line], 0,  "all", "all");
       break;
       default:
       console.log("WARNING: invalid hidelevel in updatedisplay: " + this.hideLevel[line]);
-      newText = fullText[line];
+      newText = this.fullText[line];
     }
     this.displayedText[line] = newText.split(/([_]+)/);
   }

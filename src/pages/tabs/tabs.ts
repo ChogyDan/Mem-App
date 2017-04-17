@@ -9,6 +9,7 @@ import {ContactPage} from '../contact/contact';
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
+  myIndex: number;
   // this tells the tabs component which Pages
   // should be each tab's root Page
   tab1Root: any = SetupPage;
@@ -16,6 +17,15 @@ export class TabsPage {
   tab3Root: any = ContactPage;
 
   constructor() {
+    this.myIndex = localStorage["selectedTab"];
+
+  }
+
+  tabChange(event) {
+    localStorage["selectedTab"] = event.index;
+  }
+
+  onload(){
 
   }
 }

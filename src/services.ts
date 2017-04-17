@@ -33,7 +33,7 @@ export class MemorizeServices {
         //this.currentText = 0;
     }
 
-    getText(num?: number): string[] {//TODO  HEREIAM  make this work with custom, and also adjust so it doesn't take num as input
+    getText(): string[] {
 /*        if(num == undefined) {
             //num = this.getCurrent();
             num = texts.titles.indexOf(this.getTitle());
