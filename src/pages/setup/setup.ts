@@ -32,6 +32,7 @@ export class SetupPage {
     };
     this.service.setTitle(title);
     this.fullText = this.service.getText();
+    localStorage["scrollPos"] = 0; //see memorize.ts to see how this works.
   }
 
   swoosh(){
@@ -45,6 +46,7 @@ export class SetupPage {
   }
 
   restartMemorization(){
+    localStorage["scrollPos"] = 0;
     this.service.restart();
     this.continue();
   }
