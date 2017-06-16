@@ -14,30 +14,24 @@ export class SetupPage {
   textList: string [] = ['uninitialized','string:','list', 'textList'];
   isCustom: boolean;
   customText: string;
+  customTitle: string = "Enter your own";
   constructor(private navCtrl: NavController, private service: MemorizeService ) {
     this.textList = service.getNames();
     this.fullText = service.getText();
     this.isCustom = service.getTitle() == "custom";
     this.customText = window.localStorage["custom"];
+    //TODO initialize height of custom element
   }
-  //mydata = new MemorizeServices();
-  //text = this.mydata.getText();
 
   selectText(title){
-    console.log("Title that was selected is " + title);
-    if(title == 'custom') {
+    if(title == "custom") {
       this.isCustom = true;
     } else {
       this.isCustom = false;
     };
     this.service.setTitle(title);
     this.fullText = this.service.getText();
-    localStorage["scrollPos"] = 0; //see memorize.ts to see how this works.
-  }
-
-  swoosh(){
-    console.log("swoosh called");
-    this.navCtrl.parent.push(MemorizePage);
+    localStorage["scrollPos"] = 0; //This scroll position is used in memorize.ts, and we are setting it back to the top of the page
   }
   
   startMemorizing(title: string){
@@ -52,8 +46,6 @@ export class SetupPage {
   }
 
   continue(){
-    // console.log("continue called 2");
-    // console.log(this.navCtrl.parent.getByIndex(1));
     this.navCtrl.parent.select(1);
   }
   
@@ -62,7 +54,8 @@ export class SetupPage {
   }
 
   adjust(event): void {
-    window.localStorage["custom"] = event.target.value;
+    window.localStorage["custom"] = event.target.value;  //keep localstorage updated with what is in custom
+    console.log(window.localStorage["custom"].length + " is the length of custom");
 
     //Autoresize logic
     // This code is based on this module: From: https://gist.github.com/Eetezadi/368658ca4364354cfca768f24e2ac810

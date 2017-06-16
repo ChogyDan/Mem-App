@@ -123,6 +123,7 @@ export class MemorizeServices {
             //console.log("currentTitle is " + window.localStorage['currentTitle']);
             return window.localStorage['currentTitle'];
         } else {
+            console.log("WARNING: returning default title (see services.ts:getTitle)");
             return this.getNames()[0];
         }
     }

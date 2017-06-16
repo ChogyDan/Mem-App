@@ -9,6 +9,9 @@
   <p>
     A memorization app to help with classical buddhist texts.  Hopefully there is something special about this endevor.
   </p>
+  <p>Instructions: This app features a simple interface.  
+  </p><p>Clicking on a line will progessively hide a selection of characters on the line with an underscore.  For example, the words "hidden text" might be transformed into "h_____ t___" where only the first letter of each word is show and all other letters are hidden.
+    </p><p> will do the opposite of whatever the last click did, thus revealing the line.</p>
   <table>
     <tr><!--<td>Strategy</td>--><td>Name</td>
     <tr>
@@ -16,7 +19,7 @@
       <option>Odd-Even</option>
       </select></td>-->
       <td><select (change)="selectText($event.target.value)"><!--TODO change to https://ionicframework.com/docs/v2/api/components/select/Select/ -->
-      <option>custom</option>
+      <option value="custom">{{customTitle}}</option>
       <option *ngFor="let textName of textList"  [value]="textName" [attr.selected]="textName==service.getTitle()?'selected':null">{{textName}}</option>
       </select></td>
       <td><button (click)="restartMemorization()">Restart</button></td>
@@ -24,8 +27,5 @@
     </tr>
   </table>
   <div *ngIf="!showCustom()"><p><span *ngFor="let line of fullText">{{line}}<br></span></p></div>
-  <ion-item *ngIf="showCustom()"><ion-label>Enter your own!</ion-label><ion-textarea rows="6" [(ngModel)]="customText" (input)="adjust($event)">test text</ion-textarea></ion-item>
-
-  
-
+  <ion-item *ngIf="showCustom()"><!--ion-label>Enter your own!</ion-label--><ion-textarea rows="6" [(ngModel)]="customText" (input)="adjust($event)">this text should be replaced</ion-textarea></ion-item>
 </ion-content>

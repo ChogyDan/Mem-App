@@ -24,7 +24,7 @@ export class MemorizePage {
     //this.displayedText = this.fullText.splice(0);
     this.displayedText = [];
     //this.hideLevel = [];
-    this.refresh();
+    //this.refresh();
     //this.content.addScrollEventListener(this.onPageScroll);
 
     
@@ -36,9 +36,9 @@ export class MemorizePage {
     this.hideLevel = this.service.getSave();
     this.fullText = this.service.getText()
     this.displayedText = this.hideLevel.map(function(_, i){
-      return ["DEBUG: uninitialized displayText in memorize:refresh"];
+      return [];
     });
-    let textLength = this.service.getText().length;
+    let textLength = this.fullText.length;
     for (let i = 0; i < textLength; i++) {
       this.updateDisplay(i);
     }
