@@ -150,7 +150,8 @@ export class MemorizePage {
     this.updateDisplay(line);
     this.service.save(this.hideLevel);
   }
-    revealCycle(line: number){
+  
+  revealCycle(line: number){
     if(this.hideLevel[line] > 0) {
       this.hideLevel[line] -= 1;
     } else {

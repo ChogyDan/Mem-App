@@ -55,6 +55,9 @@ export class MemorizeServices {
         let title = this.getTitle();
         if(title == "custom") {
             returnText = window.localStorage["custom"];
+            if(returnText == undefined) {
+                returnText = "";
+            }
             console.log("returnText is custom: " + returnText);
         } else {
             returnText = texts.texts[texts.titles.indexOf(title)];
