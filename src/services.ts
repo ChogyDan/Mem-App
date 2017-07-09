@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {practices37, Practices37} from './myservicevariables';
 import * as texts from './texts';
-
-var friends = "temp friends variable";
-
-let mainTexts = new Practices37();
 
 //from https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
  function storageAvailable(type) {
@@ -30,27 +25,9 @@ export class MemorizeServices {
         this.title = this.getNames()[0];
         count += 1;
         console.log("DEBUG: Mem service count is " + count);
-        //this.currentText = 0;
     }
 
     getText(): string[] {
-/*        if(num == undefined) {
-            //num = this.getCurrent();
-            num = texts.titles.indexOf(this.getTitle());
-        }
-        if(num >= texts.texts.length || num < 0) {
-            console.log("WARNING: invalid title: " + num+" detected in services.ts:getText");
-            num = 0;
-        }
-
-        if(num == this.numCurrent) {
-            return this.text;
-        } else {
-            this.numCurrent = num;
-            this.text = texts.texts[num].split('\n')
-            return this.text
-        };*/
-
         let returnText = "";
         let title = this.getTitle();
         if(title == "custom") {
@@ -61,7 +38,6 @@ export class MemorizeServices {
             console.log("returnText is custom: " + returnText);
         } else {
             returnText = texts.texts[texts.titles.indexOf(title)];
-            console.log("returnText is: " + returnText + " and title is " + title);
             if(returnText == undefined) {
                 returnText = texts.texts[0];
                 console.log("WARNING: invalid returnText detected.  Probably a bad title.  Using first text.");
@@ -71,11 +47,10 @@ export class MemorizeServices {
     }//getText
 
     getNames(): string [] {
-        // return mainTexts.titleList;
         return texts.titles;
     }
-    getSave() { // 'save' refers to saved user data
-        let save = storageAvailable('localStorage') ? window.localStorage[this._saveLocation()] : undefined;
+    getSave(setname) { // 'save' refers to saved user data
+        let save = storageAvailable('localStorage') ? window.localStorage[this._saveLocation(setname)] : undefined;
         
         if( save != undefined && JSON.parse(save).length == this.getText().length){
             return JSON.parse(save);
@@ -87,25 +62,42 @@ export class MemorizeServices {
               console.log("- lengths: " + JSON.parse(save).length + " and text length: " + this.getText().length);
             }
             console.log("- end no-save warning -");
-            return this.getText().map(   function(_,i){  return 0; }   );
+            return this.getText().map(   function(_,i){  return 0; }   );  //TODO rewrite this properly
         }
     }
 
     restart() {
-        this.save(
+        this.save("main",
             this.getText().map(
                 function(_,i){  return 0; }
             )
         );
+        this.save("touched",
+             this.getText().map(
+                function(_,i){  return 0; }
+            )
+        );
+        this.save("date",
+             this.getText().map(
+                function(_,i){  return 0; }
+            )
+        );
+
+        this.save("next", 
+            this.getText().map(
+                function(_,i){ return { "hide": 0, "touched": false, "date": 0 }; }
+            )
+        );
+
     }
 
-    save(data): void {
+    save(setname: string, data): void {
         if(data.length != this.getText().length) {
             console.log("ERROR: save data length is incorrect");
             return;
         }
 
-        localStorage[this._saveLocation()] = JSON.stringify(data);
+        localStorage[this._saveLocation(setname)] = JSON.stringify(data);
     }
 
     setTitle(title: string): void {
@@ -131,8 +123,8 @@ export class MemorizeServices {
         }
     }
 
-    private _saveLocation(): string {
-        return "save__" + this.getTitle();
+    private _saveLocation(setname: string): string {
+        return "save__" + this.getTitle() + setname;
     }
 }
 
