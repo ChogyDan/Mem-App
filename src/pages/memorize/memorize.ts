@@ -134,53 +134,21 @@ export class MemorizePage {
   }
 
   hideCycle(line: number){
-    if(this.hideLevel[line] < this.MAX_HIDELEVEL) {
-      this.hideLevel[line] += 1;
-    } else {
-      //this.hideLevel[line] = 0;
-      /*let actionsheet = this.actionSheetGenerator.create({
-        title: "Choose path",
-        buttons: [{
-          text: "Hide completely",
-          handler: () => {
-            this.hideLevel[line] = 3;
-          }
-        },
-        {
-          text: "Reveal completely",
-          handler: () => {
-            this.hideLevel[line] = 0;
-          }
-        },
-        {
-          title: "Leave as is",
-          handler: () => { }
-        }]
-      });
-      actionsheet.present().then(function(){ });*/
-    }
     if(this.repeatTest(line)) {
       this.data[line].touched = false;
       this.data[line].date = Date.now();
-    } else{
+    } else {
       if(this.data[line].hide < this.MAX_HIDELEVEL) {
         this.data[line].hide += 1;
       }
       this.data[line].touched = true;
       this.data[line].date = Date.now();
     }
-
     this.updateDisplay(line);
-    // this.service.save("main", this.hideLevel);
     this.service.save("next", this.data);
   }
   
   revealCycle(line: number){
-    // if(this.hideLevel[line] > 0) {
-    //   this.hideLevel[line] -= 1;
-    // } else {
-    //   //nothing
-    // }
     if(this.data[line].hide > 0) {
       this.data[line].hide -= 1;
     } else {
@@ -193,7 +161,7 @@ export class MemorizePage {
 
   repeatTest(line){
     let element = this.data[line];
-    if(element.touched && Date.now() - element.date > 43200000) { // half day 43200000
+    if(element.touched && Date.now() - element.date > 3600000) { // half day 43200000 hour 3600000 
       return true;
     } else return false;
   }

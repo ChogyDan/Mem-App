@@ -62,11 +62,14 @@ export class MemorizeServices {
               console.log("- lengths: " + JSON.parse(save).length + " and text length: " + this.getText().length);
             }
             console.log("- end no-save warning -");
-            return this.getText().map(   function(_,i){  return 0; }   );  //TODO rewrite this properly
+            this.restart();
+            return this.getSave(setname);
+            // return this.getText().map(   function(_,i){  return 0; }   );  //TODO rewrite this properly
         }
     }
 
     restart() {
+        console.log("restarting...");
         this.save("main",
             this.getText().map(
                 function(_,i){  return 0; }
