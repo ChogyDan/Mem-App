@@ -62,64 +62,32 @@ export class MemorizePage {
     });
   }
 
-
-  /*revealClick (line) {
-    this.displayedText[line] = this.fullText[line];
-    this.revealed[line] = true;
-    this.service.save(this.revealed);
-  }
-
-  hideClick (line) {
-    this.displayedText[line] = this.obscuredText[line];
-    this.revealed[line] = false;
-    this.service.save(this.revealed);
-  }*/
   save() {
     this.service.save("main", this.hideLevel);
   }
   
-  // hideMore(line){
-  //   console.log("hide more");
-  //   if(this.hideLevel[line] === MAX_HIDELEVEL){
-  //     console.log("WARNING: max hide already achieved");
-  //     return;
-  //   }
-  //   this.hideLevel[line] += 1;
-  //   this.updateDisplay(line);
-  //   this.service.save(this.hideLevel);
-  //   console.log ("hide level: " + this.hideLevel[line]);
-  // }
-  // hideLess(line){
-  //   if(this.hideLevel[line] === 0){
-  //     console.log("WARNING: min hide already achieved");
-  //     return;
-  //   }
-  //   this.hideLevel[line] -= 1;
-  //   this.updateDisplay(line);
-  //   this.service.save(this.hideLevel);
-  // }
-  MAX_HIDELEVEL = 5;
+  MAX_HIDELEVEL = 4;
   updateDisplay(line) {
     let newText: string;
     //let fullText = this.service.getText();
     switch(this.data[line].hide){
-      case 5:
+      case 4:
       case 0:
       newText = this.fullText[line];
       break;
-      case 1:
-      newText = helpers.obscureEndOfString(this.fullText[line], 1, "first", "first");
-      break;
+      // case 1:
+      // newText = helpers.obscureEndOfString(this.fullText[line], 1, "first", "first");
+      // break;
       /*case 2:
       newText = helpers.obscureEndOfString(this.fullText[line], 1, "even");
       break;*/
-      case 2:
+      case 1:
       newText = helpers.obscureEndOfString(this.fullText[line], 1,  "all", "first");
       break;
-      case 3:
+      case 2:
       newText = helpers.obscureEndOfString(this.fullText[line], 0,  "first", "all");
       break;
-      case 4:
+      case 3:
       newText = helpers.obscureEndOfString(this.fullText[line], 0,  "all", "all");
       break;
       default:
@@ -137,7 +105,7 @@ export class MemorizePage {
     if(this.repeatTest(line)) {
       this.data[line].touched = false;
       this.data[line].date = Date.now();
-    } else {
+    } else { //if repeat status was just removed, don't reduce hide level
       if(this.data[line].hide < this.MAX_HIDELEVEL) {
         this.data[line].hide += 1;
       }
@@ -149,6 +117,10 @@ export class MemorizePage {
   }
   
   revealCycle(line: number){
+    if(this.repeatTest(line)) { // remove repeat test status if it is present
+      this.data[line].touched = false;
+      this.data[line].date = Date.now();
+    }
     if(this.data[line].hide > 0) {
       this.data[line].hide -= 1;
     } else {
@@ -165,69 +137,4 @@ export class MemorizePage {
       return true;
     } else return false;
   }
-
-  /*changeHide(line: number) {
-    let explicitButtons = [
-    {
-      text: this.fullText[line],
-      handler: () => {
-        this.hideLevel[line] = 0;
-        this.displayedText[line] = this.fullText[line]
-      },
-    },
-    {
-      text: helpers.obscureEndOfString(this.fullText[line], 1, "odd"),
-      handler: () => {
-        this.hideLevel[line] = 1;
-        this.displayedText[line] = helpers.obscureEndOfString(this.fullText[line], 1, "odd")
-      },
-    },
-    {
-      text: helpers.obscureEndOfString(this.fullText[line], 1, "even"),
-      handler: () => {
-        this.hideLevel[line] = 2;
-        this.displayedText[line] = helpers.obscureEndOfString(this.fullText[line], 1, "even")
-      },
-    },
-    {
-      text: helpers.obscureEndOfString(this.fullText[line], 1, "both"),
-      handler: () => {
-        this.hideLevel[line] = 3;
-        this.displayedText[line] = helpers.obscureEndOfString(this.fullText[line], 1, "both")
-      },
-    },
-    {
-      text: helpers.obscureEndOfString(this.fullText[line], 0, "both"),
-      handler: () => {
-        this.hideLevel[line] = 4;
-        this.displayedText[line] = helpers.obscureEndOfString(this.fullText[line], 0, "both")
-      },
-    },
-    ];
-    let actionSheet = this.actionSheetGenerator.create({
-      title: this.fullText[line],
-      buttons: [
-        {
-          text: 'Hide more',
-          handler: () => {
-            console.log("button clicked");
-            this.hideMore(line);
-          }
-        },
-        {
-          text: 'Hide Less',
-          handler: () => {
-            console.log("hide less clicked");
-            this.hideLess(line);
-          }
-        }
-      ]
-
-    });
-    actionSheet.present().then(function(){
-
-    });
-
-  }*/
-
 }
